@@ -16,6 +16,7 @@ spec:
           storageClassName: "px-csi-db"
         pxbackup:
           enabled: true
+          skipValidations: true
         isArgoCD: true             # This is required!
         # isOpenshift: true        # Uncomment if deploying to OpenShift
   destination:
