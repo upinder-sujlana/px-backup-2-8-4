@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: px-central
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: http://charts.portworx.io/
+    chart: px-central
+    targetRevision: 2.8.4
+    helm:
+      values: |
+        persistentStorage:
+          enabled: true
+          storageClassName: "px-csi-db"
+        pxbackup:
+          enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: central
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
